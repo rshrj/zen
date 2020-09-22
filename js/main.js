@@ -9,16 +9,16 @@ music_sources = [
 ];
 
 background_sources = [
-  "./assets/img/pexels-asad-photo-maldives-3320526.jpg",
-  "./assets/img/pexels-donald-tong-189298.jpg",
-  "./assets/img/pexels-eberhard-grossgasteiger-4406352.jpg",
-  "./assets/img/pexels-enchanted-places-3737356.jpg",
-  "./assets/img/pexels-james-wheeler-417074.jpg",
-  "./assets/img/pexels-pixabay-460621.jpg",
-  "./assets/img/pexels-ray-bilcliff-2904634.jpg",
-  "./assets/img/pexels-sahil-patel-3818407.jpg",
-  "./assets/img/pexels-sevenstorm-juhaszimrus-402553.jpg",
-  "./assets/img/pexels-tahir-shaw-205410.jpg",
+  "./assets/img/1.jpg",
+  "./assets/img/2.jpg",
+  "./assets/img/3.jpg",
+  "./assets/img/4.jpg",
+  "./assets/img/5.jpg",
+  "./assets/img/6.jpg",
+  "./assets/img/7.jpg",
+  "./assets/img/8.jpg",
+  "./assets/img/9.jpg",
+  "./assets/img/10.jpg",
 ];
 
 $(document).ready(function () {
