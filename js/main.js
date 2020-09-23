@@ -43,6 +43,8 @@ $(document).ready(function () {
 
   let slideshowOn = false;
 
+  let init_msg = "";
+
   const audio = $("#theAudio");
 
   const background = $(".root");
@@ -172,8 +174,10 @@ $(document).ready(function () {
 
   const switchVideo = () => {
     if (switchVal.is(":checked")) {
+      init_msg = "1. Reflect on your achievements";
       video.attr("src", video_sources[1]);
     } else {
+      init_msg = "1. Think of your loved one";
       video.attr("src", video_sources[0]);
     }
   };
@@ -330,12 +334,5 @@ $(document).ready(function () {
 
   switcherFadeIn();
 
-  var images = new Array();
-  function preload() {
-    for (i = 0; i < preload.arguments.length; i++) {
-      images[i] = new Image();
-      images[i].src = preload.arguments[i];
-    }
-  }
-  preload(background_sources);
+  switchVideo();
 });
