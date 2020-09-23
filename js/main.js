@@ -3,22 +3,27 @@ const IDLE = "IDLE";
 const PROCESSING = "PROCESSING";
 
 music_sources = [
-  "./assets/music/bensound-betterdays.mp3",
-  "./assets/music/bensound-november.mp3",
-  "./assets/music/bensound-relaxing.mp3",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/music/bensound-betterdays.mp3",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/music/bensound-november.mp3",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/music/bensound-relaxing.mp3",
 ];
 
 background_sources = [
-  "./assets/img/1.jpg",
-  "./assets/img/2.jpg",
-  "./assets/img/3.jpg",
-  "./assets/img/4.jpg",
-  "./assets/img/5.jpg",
-  "./assets/img/6.jpg",
-  "./assets/img/7.jpg",
-  "./assets/img/8.jpg",
-  "./assets/img/9.jpg",
-  "./assets/img/10.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/1.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/2.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/3.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/4.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/5.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/6.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/7.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/8.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/9.jpg",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/img/10.jpg",
+];
+
+video_sources = [
+  "https://bluzen.s3.ap-south-1.amazonaws.com/vids/background-3.mp4",
+  "https://bluzen.s3.ap-south-1.amazonaws.com/vids/background-1.mp4",
 ];
 
 $(document).ready(function () {
@@ -42,18 +47,30 @@ $(document).ready(function () {
 
   const background = $(".root");
 
+  const video = $("#theVideo");
+
   const overlay = $(".overlay");
 
   const mainText = $("#maintext");
 
   const secText = $("#sectext");
 
+  const btnText = $(".btn-text");
+
+  const switcher = $(".toggler");
+
+  const switchVal = $("#switchVal");
+
   $(window).on({
-    click: function () {
+    click: function (e) {
       if (state == IDLE) {
-        polishedStart();
-        state = PROCESSING;
-        console.log("hi, state = " + state);
+        if (e.target.tagName.toUpperCase() == "INPUT") {
+          switchVideo();
+        } else {
+          polishedStart();
+          state = PROCESSING;
+          console.log("hi, state = " + state);
+        }
       }
     },
     keypress: function () {
@@ -72,10 +89,6 @@ $(document).ready(function () {
       console.log("bye, state = " + state);
     }
   });
-
-  setInterval(function () {
-    console.log(audio[0].volume);
-  }, 500);
 
   // function startPlaying() {
   //   file = Math.floor(Math.random() * 3);
@@ -142,6 +155,26 @@ $(document).ready(function () {
     }
   };
 
+  const backgroundVideoFadeIn = () => {
+    video[0].play();
+    video.css("display", "block");
+    return overlay.animate({ opacity: 0 }, textTransitionTimes).promise();
+  };
+
+  const backgroundVideoFadeOut = async () => {
+    await overlay.animate({ opacity: 1 }, textTransitionTimes).promise();
+    video[0].pause();
+    video.css("display", "none");
+  };
+
+  const switchVideo = () => {
+    if (switchVal.is(":checked")) {
+      video.attr("src", video_sources[1]);
+    } else {
+      video.attr("src", video_sources[0]);
+    }
+  };
+
   const endSlideShow = () => {
     slideshowOn = false;
   };
@@ -182,6 +215,21 @@ $(document).ready(function () {
     return audio.animate({ volume: 1 }, musicFadeInTime).promise();
   };
 
+  const switcherFadeOut = () => {
+    btnText.animate({ opacity: 0 }, textTransitionTimes);
+    return switcher
+      .animate({ opacity: 0 }, textTransitionTimes, () => {
+        switcher.css("display", "none");
+      })
+      .promise();
+  };
+
+  const switcherFadeIn = () => {
+    switcher.css("display", "block");
+    btnText.animate({ opacity: 1 }, textTransitionTimes);
+    return switcher.animate({ opacity: 1 }, textTransitionTimes).promise();
+  };
+
   async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
       await callback(array[index], index, array);
@@ -196,6 +244,8 @@ $(document).ready(function () {
     // Everything fades out
     // Background
     backgroundFadeOut();
+    // Switcher
+    switcherFadeOut();
     // Text
     await textFadeOut();
 
@@ -207,7 +257,7 @@ $(document).ready(function () {
       await mainTextFadeOut();
     });
 
-    backgroundSlideshowFadeIn();
+    backgroundVideoFadeIn();
 
     musicFadeIn(
       music_sources[Math.floor(Math.random() * music_sources.length)]
@@ -233,7 +283,7 @@ $(document).ready(function () {
 
   async function polishedHalt() {
     backgroundFadeOut();
-    endSlideShow();
+    backgroundVideoFadeOut();
     musicFadeOut();
     clearInterval(timer);
     mainText.addClass("danger");
@@ -244,13 +294,14 @@ $(document).ready(function () {
     backgroundFadeIn(
       background_sources[Math.floor(Math.random() * background_sources.length)]
     );
+    switcherFadeIn();
     await textFadeIn();
     state = IDLE;
   }
 
   async function polishedStop() {
     backgroundFadeOut();
-    endSlideShow();
+    backgroundVideoFadeOut();
     musicFadeOut();
     clearInterval(timer);
     await textFadeOut();
@@ -261,6 +312,7 @@ $(document).ready(function () {
       background_sources[Math.floor(Math.random() * background_sources.length)]
     );
     textFadeIn();
+    switcherFadeIn();
   }
 
   // Initialization
@@ -270,6 +322,8 @@ $(document).ready(function () {
   );
 
   textFadeIn();
+
+  switcherFadeIn();
 
   var images = new Array();
   function preload() {

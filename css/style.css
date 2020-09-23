@@ -3,6 +3,12 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  /* user-select: none; */
+  -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: none;
 }
 
 html {
@@ -23,7 +29,28 @@ body {
   width: 100%;
   height: 100%;
   background: #228b22 no-repeat center center/cover;
-  z-index: -10;
+  z-index: 10;
+}
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 20;
+}
+
+#theVideo {
+  display: none;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .overlay {
@@ -34,7 +61,7 @@ body {
   height: 100%;
   opacity: 1;
   background-color: black;
-  z-index: -5;
+  z-index: 30;
 }
 
 .text {
@@ -51,6 +78,7 @@ body {
   padding: 40px;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
+  z-index: 40;
 }
 
 .text #maintext {
@@ -59,6 +87,7 @@ body {
   font-weight: 100;
   padding: 20px;
   opacity: 0;
+  z-index: 45;
 }
 
 .text #maintext.danger {
@@ -69,4 +98,114 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   opacity: 0;
+  z-index: 45;
+}
+
+.toggler {
+  position: relative;
+  /* position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  margin: 10px;
+  width: 120px;
+  height: 70px;
+  z-index: 50;
+}
+
+.text .btn-text {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-cover {
+  height: 60px;
+}
+
+.button-cover,
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 85px;
+  height: 50px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 70;
+}
+
+.knobs {
+  z-index: 65;
+}
+
+.layer {
+  width: 100%;
+  /* background-color: #ebf7fc; */
+  border: 2px solid white;
+  transition: 0.3s ease all;
+  z-index: 60;
+}
+
+#button-3 .knobs:before {
+  content: "YES";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 25px;
+  height: 15px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 11px 6px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#button-3 .checkbox:active + .knobs:before {
+  width: 46px;
+  border-radius: 100px;
+}
+
+#button-3 .checkbox:checked:active + .knobs:before {
+  margin-left: -26px;
+}
+
+#button-3 .checkbox:checked + .knobs:before {
+  content: "NO";
+  left: 42px;
+  background-color: white;
 }

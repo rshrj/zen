@@ -4,15 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Relax and Zen!</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <div class="root">
+      <div class="video-container">
+        <video
+          id="theVideo"
+          src="https://bluzen.s3.ap-south-1.amazonaws.com/vids/background-1.mp4"
+          muted
+          loop
+          preload="auto"
+        ></video>
+      </div>
       <div class="overlay"></div>
       <audio id="theAudio"></audio>
       <div class="text">
         <h1 id="maintext">Relax and do nothing for two minutes</h1>
         <h3 id="sectext">Click or press any button to start</h3>
+        <h3 class="btn-text">Personal?</h3>
+        <div class="toggler">
+          <div class="button-cover">
+            <div class="button r" id="button-3">
+              <input type="checkbox" class="checkbox" id="switchVal" checked />
+              <div class="knobs"></div>
+              <div class="layer"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script
