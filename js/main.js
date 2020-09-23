@@ -82,7 +82,7 @@ $(document).ready(function () {
     },
   });
 
-  $(window).on("click keydown keyup mousemove", function () {
+  $(window).on("click keydown keyup mousemove tap swipe", function () {
     if (state == PLAYING) {
       polishedHalt();
       state = PROCESSING;

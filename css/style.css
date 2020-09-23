@@ -211,3 +211,12 @@ body {
   left: 42px;
   background-color: white;
 }
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .text {
+    width: 30rem;
+  }
+  .text #maintext {
+    font-size: 2rem;
+  }
+}
