@@ -82,13 +82,16 @@ $(document).ready(function () {
     },
   });
 
-  $(window).on("click keydown keyup mousemove tap swipe", function () {
-    if (state == PLAYING) {
-      polishedHalt();
-      state = PROCESSING;
-      console.log("bye, state = " + state);
+  $(window).on(
+    "touchstart click keydown keyup mousemove tap swipe ",
+    function () {
+      if (state == PLAYING) {
+        polishedHalt();
+        state = PROCESSING;
+        console.log("bye, state = " + state);
+      }
     }
-  });
+  );
 
   // function startPlaying() {
   //   file = Math.floor(Math.random() * 3);
