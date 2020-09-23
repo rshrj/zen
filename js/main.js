@@ -29,7 +29,7 @@ video_sources = [
 $(document).ready(function () {
   let state = IDLE;
 
-  const duration = 10;
+  const duration = 2 * 60;
 
   const textTransitionTimes = 1000;
 
