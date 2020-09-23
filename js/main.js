@@ -174,10 +174,10 @@ $(document).ready(function () {
 
   const switchVideo = () => {
     if (switchVal.is(":checked")) {
-      init_msg = "4. reflect on your achievements";
+      init_msg = "2. reflect on your achievements";
       video.attr("src", video_sources[1]);
     } else {
-      init_msg = "4. think of your loved one";
+      init_msg = "2. think of your loved one";
       video.attr("src", video_sources[0]);
     }
   };
@@ -260,9 +260,9 @@ $(document).ready(function () {
 
     // Instructions appear one by one on black screen
     const instructions = [
+      "4. leave everything...",
+      "3. take a deep breath...",
       init_msg,
-      "3. leave everything...",
-      "2. take a deep breath...",
       "1. let's go!",
     ];
     await asyncForEach(instructions, async (instruction) => {
