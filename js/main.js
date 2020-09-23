@@ -29,7 +29,7 @@ video_sources = [
 $(document).ready(function () {
   let state = IDLE;
 
-  const duration = 2 * 60;
+  const duration = 10;
 
   const textTransitionTimes = 1000;
 
@@ -174,10 +174,10 @@ $(document).ready(function () {
 
   const switchVideo = () => {
     if (switchVal.is(":checked")) {
-      init_msg = "1. Reflect on your achievements";
+      init_msg = "4. reflect on your achievements";
       video.attr("src", video_sources[1]);
     } else {
-      init_msg = "1. Think of your loved one";
+      init_msg = "4. think of your loved one";
       video.attr("src", video_sources[0]);
     }
   };
@@ -259,7 +259,12 @@ $(document).ready(function () {
     await textFadeOut();
 
     // Instructions appear one by one on black screen
-    const instructions = ["Leave Everything", "Take a deep breath", "Let's Go"];
+    const instructions = [
+      init_msg,
+      "3. leave everything...",
+      "2. take a deep breath...",
+      "1. let's go!",
+    ];
     await asyncForEach(instructions, async (instruction) => {
       await mainTextFadeIn(instruction);
       await timeout(2000);
@@ -314,9 +319,11 @@ $(document).ready(function () {
     musicFadeOut();
     clearInterval(timer);
     await textFadeOut();
+    mainText.addClass("success");
     await mainTextFadeIn("You are calm now");
     await timeout(2000);
     await mainTextFadeOut();
+    mainText.removeClass("success");
     backgroundFadeIn(
       background_sources[Math.floor(Math.random() * background_sources.length)]
     );

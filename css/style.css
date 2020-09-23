@@ -94,6 +94,10 @@ body {
   color: red;
 }
 
+.text #maintext.success {
+  color: #228b22;
+}
+
 .text #sectext {
   font-size: 1.5rem;
   font-weight: bold;
