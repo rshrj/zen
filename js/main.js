@@ -220,12 +220,14 @@ $(document).ready(function () {
     return switcher
       .animate({ opacity: 0 }, textTransitionTimes, () => {
         switcher.css("display", "none");
+        btnText.css("display", "none");
       })
       .promise();
   };
 
   const switcherFadeIn = () => {
     switcher.css("display", "block");
+    btnText.css("display", "block");
     btnText.animate({ opacity: 1 }, textTransitionTimes);
     return switcher.animate({ opacity: 1 }, textTransitionTimes).promise();
   };
