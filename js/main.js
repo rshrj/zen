@@ -78,7 +78,7 @@ $(document).ready(function () {
     keypress: function () {
       if (state == IDLE) {
         polishedStart();
-        state = PLAYING;
+        state = PROCESSING;
         console.log("hi, state = " + state);
       }
     },
