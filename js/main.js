@@ -1,29 +1,29 @@
-const PLAYING = "PLAYING";
-const IDLE = "IDLE";
-const PROCESSING = "PROCESSING";
+const PLAYING = 'PLAYING';
+const IDLE = 'IDLE';
+const PROCESSING = 'PROCESSING';
 
 music_sources = [
-  "https://bluzen.s3.ap-south-1.amazonaws.com/music/bensound-betterdays.mp3",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/music/bensound-november.mp3",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/music/bensound-relaxing.mp3",
+  '../assets/music/bensound-betterdays.mp3',
+  '../assets/music/bensound-november.mp3',
+  '../assets/music/bensound-relaxing.mp3'
 ];
 
 background_sources = [
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/1.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/2.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/3.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/4.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/5.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/6.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/7.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/8.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/9.jpg",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/img/10.jpg",
+  '../assets/img/1.jpg',
+  '../assets/img/2.jpg',
+  '../assets/img/3.jpg',
+  '../assets/img/4.jpg',
+  '../assets/img/5.jpg',
+  '../assets/img/6.jpg',
+  '../assets/img/7.jpg',
+  '../assets/img/8.jpg',
+  '../assets/img/9.jpg',
+  '../assets/img/10.jpg'
 ];
 
 video_sources = [
-  "https://bluzen.s3.ap-south-1.amazonaws.com/vids/background-3.mp4",
-  "https://bluzen.s3.ap-south-1.amazonaws.com/vids/background-1.mp4",
+  '../assets/vids/background-3.mp4',
+  '../assets/vids/background-1.mp4'
 ];
 
 $(document).ready(function () {
@@ -43,35 +43,35 @@ $(document).ready(function () {
 
   let slideshowOn = false;
 
-  let init_msg = "";
+  let init_msg = '';
 
-  const audio = $("#theAudio");
+  const audio = $('#theAudio');
 
-  const background = $(".root");
+  const background = $('.root');
 
-  const video = $("#theVideo");
+  const video = $('#theVideo');
 
-  const overlay = $(".overlay");
+  const overlay = $('.overlay');
 
-  const mainText = $("#maintext");
+  const mainText = $('#maintext');
 
-  const secText = $("#sectext");
+  const secText = $('#sectext');
 
-  const btnText = $(".btn-text");
+  const btnText = $('.btn-text');
 
-  const switcher = $(".toggler");
+  const switcher = $('.toggler');
 
-  const switchVal = $("#switchVal");
+  const switchVal = $('#switchVal');
 
   $(window).on({
     click: function (e) {
       if (state == IDLE) {
-        if (e.target.tagName.toUpperCase() == "INPUT") {
+        if (e.target.tagName.toUpperCase() == 'INPUT') {
           switchVideo();
         } else {
           polishedStart();
           state = PROCESSING;
-          console.log("hi, state = " + state);
+          console.log('hi, state = ' + state);
         }
       }
     },
@@ -79,18 +79,18 @@ $(document).ready(function () {
       if (state == IDLE) {
         polishedStart();
         state = PROCESSING;
-        console.log("hi, state = " + state);
+        console.log('hi, state = ' + state);
       }
-    },
+    }
   });
 
   $(window).on(
-    "touchstart click keydown keyup mousemove tap swipe ",
+    'touchstart click keydown keyup mousemove tap swipe ',
     function () {
       if (state == PLAYING) {
         polishedHalt();
         state = PROCESSING;
-        console.log("bye, state = " + state);
+        console.log('bye, state = ' + state);
       }
     }
   );
@@ -133,21 +133,21 @@ $(document).ready(function () {
     overlay.animate({ opacity: 1 }, textTransitionTimes).promise();
 
   const backgroundFadeIn = (image) => {
-    background.css("background-image", `url(${image})`);
+    background.css('background-image', `url(${image})`);
     return overlay.animate({ opacity: 0.4 }, textTransitionTimes).promise();
   };
 
   const changeBackground = async () => {
     background.css(
-      "background-image",
+      'background-image',
       `url(${
         background_sources[
           Math.floor(Math.random() * background_sources.length)
         ]
       })`
     );
-    background.css("background-size", "100%");
-    background.animate({ backgroundSize: "110%" }, 5000);
+    background.css('background-size', '100%');
+    background.animate({ backgroundSize: '110%' }, 5000);
     await overlay.animate({ opacity: 0.4 }, textTransitionTimes).promise();
     await timeout(3000);
     await overlay.animate({ opacity: 1 }, textTransitionTimes).promise();
@@ -162,23 +162,23 @@ $(document).ready(function () {
 
   const backgroundVideoFadeIn = () => {
     video[0].play();
-    video.css("display", "block");
+    video.css('display', 'block');
     return overlay.animate({ opacity: 0 }, textTransitionTimes).promise();
   };
 
   const backgroundVideoFadeOut = async () => {
     await overlay.animate({ opacity: 1 }, textTransitionTimes).promise();
     video[0].pause();
-    video.css("display", "none");
+    video.css('display', 'none');
   };
 
   const switchVideo = () => {
-    if (switchVal.is(":checked")) {
-      init_msg = "2. reflect on your achievements";
-      video.attr("src", video_sources[1]);
+    if (switchVal.is(':checked')) {
+      init_msg = '2. reflect on your achievements';
+      video.attr('src', video_sources[1]);
     } else {
-      init_msg = "2. think of your loved one";
-      video.attr("src", video_sources[0]);
+      init_msg = '2. think of your loved one';
+      video.attr('src', video_sources[0]);
     }
   };
 
@@ -190,14 +190,14 @@ $(document).ready(function () {
     mainText.animate({ opacity: 0 }, textTransitionTimes);
     return secText
       .animate({ opacity: 0 }, textTransitionTimes, function () {
-        secText.css("display", "none");
+        secText.css('display', 'none');
       })
       .promise();
   };
 
   const textFadeIn = () => {
-    mainText.text("Relax and do nothing for two minutes");
-    secText.css("display", "block");
+    mainText.text('Relax and do nothing for two minutes');
+    secText.css('display', 'block');
     mainText.animate({ opacity: 1 }, textTransitionTimes);
     return secText.animate({ opacity: 1 }, textTransitionTimes).promise();
   };
@@ -216,7 +216,7 @@ $(document).ready(function () {
   };
 
   const musicFadeIn = (music) => {
-    audio.attr("src", music);
+    audio.attr('src', music);
     audio[0].play();
     audio[0].volume = 0.1;
     return audio.animate({ volume: 1 }, musicFadeInTime).promise();
@@ -226,15 +226,15 @@ $(document).ready(function () {
     btnText.animate({ opacity: 0 }, textTransitionTimes);
     return switcher
       .animate({ opacity: 0 }, textTransitionTimes, () => {
-        switcher.css("display", "none");
-        btnText.css("display", "none");
+        switcher.css('display', 'none');
+        btnText.css('display', 'none');
       })
       .promise();
   };
 
   const switcherFadeIn = () => {
-    switcher.css("display", "block");
-    btnText.css("display", "block");
+    switcher.css('display', 'block');
+    btnText.css('display', 'block');
     btnText.animate({ opacity: 1 }, textTransitionTimes);
     return switcher.animate({ opacity: 1 }, textTransitionTimes).promise();
   };
@@ -260,10 +260,10 @@ $(document).ready(function () {
 
     // Instructions appear one by one on black screen
     const instructions = [
-      "4. leave everything...",
-      "3. take a deep breath...",
+      '4. leave everything...',
+      '3. take a deep breath...',
       init_msg,
-      "1. let's go!",
+      "1. let's go!"
     ];
     await asyncForEach(instructions, async (instruction) => {
       await mainTextFadeIn(instruction);
@@ -277,7 +277,7 @@ $(document).ready(function () {
       music_sources[Math.floor(Math.random() * music_sources.length)]
     );
 
-    mainTextFadeIn("Relax for 2:00");
+    mainTextFadeIn('Relax for 2:00');
 
     state = PLAYING;
 
@@ -286,8 +286,8 @@ $(document).ready(function () {
     timer = setInterval(async function () {
       var c = tmp--,
         m = (c / 60) >> 0,
-        s = c - m * 60 + "";
-      mainText.text("Relax for " + m + ":" + (s.length > 1 ? "" : "0") + s);
+        s = c - m * 60 + '';
+      mainText.text('Relax for ' + m + ':' + (s.length > 1 ? '' : '0') + s);
       if (tmp < 0) {
         await polishedStop();
         state = IDLE;
@@ -300,11 +300,11 @@ $(document).ready(function () {
     backgroundVideoFadeOut();
     musicFadeOut();
     clearInterval(timer);
-    mainText.addClass("danger");
-    mainTextFadeIn("Try again");
+    mainText.addClass('danger');
+    mainTextFadeIn('Try again');
     await timeout(2000);
     await mainTextFadeOut();
-    mainText.removeClass("danger");
+    mainText.removeClass('danger');
     backgroundFadeIn(
       background_sources[Math.floor(Math.random() * background_sources.length)]
     );
@@ -319,11 +319,11 @@ $(document).ready(function () {
     musicFadeOut();
     clearInterval(timer);
     await textFadeOut();
-    mainText.addClass("success");
-    await mainTextFadeIn("You are calm now");
+    mainText.addClass('success');
+    await mainTextFadeIn('You are calm now');
     await timeout(2000);
     await mainTextFadeOut();
-    mainText.removeClass("success");
+    mainText.removeClass('success');
     backgroundFadeIn(
       background_sources[Math.floor(Math.random() * background_sources.length)]
     );
